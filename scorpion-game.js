@@ -6,9 +6,12 @@ let scorpionX = -150;
 const speed = 1.2;
 
 let dragging = false;
-let activeTangerine = carriedTangerine;
 let offsetX = 0;
 let offsetY = 0;
+
+let gravity = 0.5; // pixels per frame^2
+let tangerineVelocityY = 0;
+const bounceDamping = 0.6; // how much velocity is retained after bounce
 
 // ---- DRAGGING ----
 carriedTangerine.addEventListener("pointerdown", e => {
@@ -37,9 +40,12 @@ carriedTangerine.addEventListener("pointerup", e => {
 
   carriedTangerine.style.pointerEvents = "auto";
   carriedTangerine.classList.add("tangerine-dropped");
+
+  // initialize gravity
+  tangerineVelocityY = 0;
 });
 
-// ---- SCORPION MOVEMENT ----
+// ---- SCORPION MOVEMENT & GRAVITY ----
 function moveScorpion() {
   scorpionX += speed;
 
@@ -48,6 +54,28 @@ function moveScorpion() {
   }
 
   scorpion.style.left = scorpionX + "px";
+
+  // Gravity effect if tangerine is dropped
+  if (!carried && !dragging) {
+    const tRect = carriedTangerine.getBoundingClientRect();
+    let tTop = parseFloat(carriedTangerine.style.top) || tRect.top;
+
+    tangerineVelocityY += gravity;
+    tTop += tangerineVelocityY;
+
+    // bounce at bottom
+    if (tTop + tRect.height > window.innerHeight) {
+      tTop = window.innerHeight - tRect.height;
+      tangerineVelocityY *= -bounceDamping;
+
+      // small threshold to stop tiny bouncing
+      if (Math.abs(tangerineVelocityY) < 1) {
+        tangerineVelocityY = 0;
+      }
+    }
+
+    carriedTangerine.style.top = tTop + "px";
+  }
 
   // check pickup collision
   if (!carried) {
@@ -72,6 +100,11 @@ function moveScorpion() {
       scorpion.appendChild(carriedTangerine);
     }
   }
+
+  requestAnimationFrame(moveScorpion);
+}
+
+moveScorpion();
 
   requestAnimationFrame(moveScorpion);
 }
