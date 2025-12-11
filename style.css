@@ -1,0 +1,45 @@
+/* Scorpion Game Wrapper */
+#scorpion-game {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: visible;
+}
+
+/* Scorpion + carried tangerine */
+#scorpion {
+  position: absolute;
+  bottom: 10px;
+  left: -120px; /* starts off-screen */
+  width: 120px;
+  height: 80px;
+  pointer-events: none;
+}
+
+#scorpion-img {
+  width: 100px;
+  image-rendering: pixelated;
+}
+
+/* Tangerine on the scorpion’s back */
+#tangerine-carried {
+  position: absolute;
+  top: -10px;
+  left: 40px;
+  width: 40px;
+  pointer-events: auto; /* needed to drag */
+  cursor: grab;
+  image-rendering: pixelated;
+}
+
+/* Tangerines dropped on the page */
+.tangerine-dropped {
+  position: absolute;
+  width: 40px;
+  cursor: grab;
+  image-rendering: pixelated;
+}
