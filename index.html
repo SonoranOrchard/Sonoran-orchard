@@ -60,12 +60,11 @@
 <body>
 <header>
     <img src="Scorpion_tangerine_logo_new.png" class="logo">
-    <h1>Sonoran Orchard</h1>
 </header>
 
 <section class="section">
     <p>
-        Located in Avondale, Arizona
+        Located in Avondale, Arizona 
         Sonoran Orchard is a family-owned 
         farm focused on fresh fruit and 
         seasonal small batch homemade goods
@@ -77,6 +76,75 @@
         <br><strong> Arizona grown. Family made.</strong>
     </p>
 </section>
+
+<section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <p>Have questions about our fruit, products, or orchard?  
+    Send us a message — we'd love to hear from you.</p>
+
+    <form action="https://formsubmit.co/info@sonoranorchard.com" method="POST" class="contact-form">
+
+        <!-- FormSubmit Setup -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New message from Sonoran Orchard Website">
+        <input type="hidden" name="_template" value="table">
+
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message…" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<style>
+/* Contact Form Styling */
+#contact h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #2b2b2b;
+}
+
+.contact-form {
+    max-width: 520px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    border: 2px solid #d2bba2;
+    background: #f7f1e3;
+    font-size: 1rem;
+    font-family: Georgia, serif;
+}
+
+.contact-form textarea {
+    height: 140px;
+    resize: vertical;
+}
+
+.contact-form button {
+    padding: 14px;
+    background-color: #d46b2c; /* tangerine desert tone */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    transition: opacity .2s ease;
+}
+
+.contact-form button:hover {
+    opacity: 0.85;
+}
+</style>
 
 <div class="footer">
     © <span id="year"></span> Sonoran Orchard — Arizona, USA
