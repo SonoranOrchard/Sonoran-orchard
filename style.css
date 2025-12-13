@@ -1,45 +1,157 @@
-/* Scorpion Game Wrapper */
-#scorpion-game {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  pointer-events: none;
-  z-index: 9999;
-  overflow: visible;
+/* Global */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    background-color: #f7f1e3;
+    color: #2b2b2b;
+    text-align: center;
 }
 
-/* Scorpion + carried tangerine */
+header {
+    padding: 60px 20px 20px;
+}
+
+.logo {
+    width: 260px;
+    max-width: 80%;
+}
+
+.section {
+    margin-top: 60px;
+    padding: 20px;
+}
+
+p {
+    font-size: 1.3rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Divider */
+.divider {
+    width: 60%;
+    margin: 40px auto;
+    border: 0;
+    border-top: 2px solid #d2bba2;
+}
+
+/* Gallery */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 6px;
+}
+
+/* Contact Form */
+#contact h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.contact-form {
+    max-width: 520px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 14px;
+    border-radius: 6px;
+    border: 2px solid #d2bba2;
+    background: #f7f1e3;
+    font-size: 1rem;
+    font-family: Georgia, serif;
+}
+
+.contact-form textarea {
+    height: 140px;
+    resize: vertical;
+}
+
+.contact-form button {
+    padding: 14px;
+    background-color: #d46b2c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: opacity .2s ease;
+}
+
+.contact-form button:hover {
+    opacity: 0.85;
+}
+
+.form-status {
+    display: none;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+/* Footer */
+.footer {
+    margin-top: 80px;
+    padding: 40px 10px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* -------------------------------
+   Scorpion Game (unchanged logic)
+-------------------------------- */
+#scorpion-game {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: visible;
+}
+
 #scorpion {
-  position: absolute;
-  bottom: 10px;
-  left: -120px; /* starts off-screen */
-  width: 120px;
-  height: 80px;
-  pointer-events: none;
+    position: absolute;
+    bottom: 10px;
+    left: -120px;
+    width: 120px;
+    height: 80px;
+    pointer-events: none;
 }
 
 #scorpion-img {
-  width: 100px;
-  image-rendering: pixelated;
+    width: 100px;
+    image-rendering: pixelated;
 }
 
-/* Tangerine on the scorpion’s back */
 #tangerine-carried {
-  position: absolute;
-  top: -10px;
-  left: 40px;
-  width: 40px;
-  pointer-events: auto; /* needed to drag */
-  cursor: grab;
-  image-rendering: pixelated;
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    width: 40px;
+    pointer-events: auto;
+    cursor: grab;
+    image-rendering: pixelated;
 }
 
-/* Tangerines dropped on the page */
 .tangerine-dropped {
-  position: absolute;
-  width: 40px;
-  cursor: grab;
-  image-rendering: pixelated;
+    position: absolute;
+    width: 40px;
+    cursor: grab;
+    image-rendering: pixelated;
 }
