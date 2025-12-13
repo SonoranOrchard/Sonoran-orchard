@@ -1,17 +1,29 @@
 /* Hero Header */
 .hero-header {
     width: 100%;
-    overflow: hidden;
-    text-align: center; /* centers inline-block images */
-    padding: 0; /* remove extra padding if needed */
+    padding: 40px 20px 0; /* controlled spacing above the image */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Header Image */
 .hero-image {
-    max-width: 100%;  /* scales down on smaller screens */
-    width: auto;       /* keeps natural width if smaller than container */
-    height: auto;      /* maintains aspect ratio */
-    display: inline-block; /* works with text-align:center for perfect centering */
-    object-fit: contain;   /* ensures it fits without cropping */
+    max-width: 1200px;  /* prevents oversized desktop rendering */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hero-header {
+        padding-top: 20px;
+    }
+
+    .hero-image {
+        max-width: 100%;
+    }
 }
 
 /* Global */
