@@ -1,3 +1,15 @@
+/* Hero Header */
+.hero-header {
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* Global */
 body {
     margin: 0;
@@ -154,4 +166,9 @@ p {
     width: 40px;
     cursor: grab;
     image-rendering: pixelated;
+}
+
+.bottom-logo {
+    margin-top: 40px;
+    opacity: 0.95;
 }
