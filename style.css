@@ -2,12 +2,16 @@
 .hero-header {
     width: 100%;
     overflow: hidden;
+    text-align: center; /* centers inline-block images */
+    padding: 0; /* remove extra padding if needed */
 }
 
 .hero-image {
-    width: 100%;
-    height: auto;
-    display: block;
+    max-width: 100%;  /* scales down on smaller screens */
+    width: auto;       /* keeps natural width if smaller than container */
+    height: auto;      /* maintains aspect ratio */
+    display: inline-block; /* works with text-align:center for perfect centering */
+    object-fit: contain;   /* ensures it fits without cropping */
 }
 
 /* Global */
