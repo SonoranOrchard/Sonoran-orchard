@@ -93,15 +93,6 @@ p {
     justify-content: center;
 }
 
-.instagram-cta {
-    margin-top: 12px;
-}
-
-.instagram-cta a {
-    text-decoration: none;
-    font-weight: bold;
-}
-
 /* Contact Form */
 #contact h2 {
     font-size: 2rem;
