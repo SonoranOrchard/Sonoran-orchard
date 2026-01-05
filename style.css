@@ -50,6 +50,29 @@ header {
     padding: 20px;
 }
 
+/* Events */
+.events-section {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#events-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px auto 0;
+}
+
+#events-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid #d2bba2;
+    font-size: 1.1rem;
+}
+
+#events-list li:last-child {
+    border-bottom: none;
+}
+
 p {
     font-size: 1.3rem;
     max-width: 650px;
