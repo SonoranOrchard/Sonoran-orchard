@@ -1,62 +1,53 @@
-<script>
-const ICS_URL = "https://calendar.google.com/calendar/ical/d23828d798e4a7d03c723a28a24462c5c42008db6aaf228da6611e1568b7b275%40group.calendar.google.com/public/basic.ics";
-const MAX_EVENTS = 5;
+document.addEventListener("DOMContentLoaded", () => {
+    const CALENDAR_ID = "d23828d798e4a7d03c723a28a24462c5c42008db6aaf228da6611e1568b7b275@group.calendar.google.com";
+    const API_KEY = "AIzaSyCHB_y60zNztsejayRVeg7rkTvySLCmR-4";
+    const MAX_EVENTS = 5;
 
-function parseICSDate(dateStr) {
-    const year = dateStr.substring(0, 4);
-    const month = dateStr.substring(4, 6) - 1;
-    const day = dateStr.substring(6, 8);
-    return new Date(year, month, day);
-}
+    const eventsList = document.getElementById("events-list");
+    if (!eventsList) return;
 
-async function loadEvents() {
-    const list = document.getElementById("events-list");
-    if (!list) return;
+    const now = new Date().toISOString();
 
-    try {
-        const response = await fetch(ICS_URL);
-        const text = await response.text();
+    const url =
+        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events` +
+        `?key=${API_KEY}` +
+        `&timeMin=${now}` +
+        `&maxResults=${MAX_EVENTS}` +
+        `&singleEvents=true` +
+        `&orderBy=startTime`;
 
-        const events = text.split("BEGIN:VEVENT").slice(1);
-        const upcoming = [];
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            eventsList.innerHTML = "";
 
-        events.forEach(event => {
-            const summary = event.match(/SUMMARY:(.+)/);
-            const date = event.match(/DTSTART;VALUE=DATE:(\d+)/);
-
-            if (summary && date) {
-                const eventDate = parseICSDate(date[1]);
-                if (eventDate >= new Date()) {
-                    upcoming.push({
-                        title: summary[1],
-                        date: eventDate
-                    });
-                }
+            if (!data.items || data.items.length === 0) {
+                eventsList.innerHTML = "<li>No upcoming events</li>";
+                return;
             }
+
+            data.items.forEach(event => {
+                const li = document.createElement("li");
+
+                const start = event.start.dateTime || event.start.date;
+                const date = new Date(start);
+
+                const formattedDate = date.toLocaleDateString("en-US", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric"
+                });
+
+                li.innerHTML = `
+                    <strong>${formattedDate}</strong><br>
+                    ${event.summary || "Event"}
+                `;
+
+                eventsList.appendChild(li);
+            });
+        })
+        .catch(err => {
+            console.error("Calendar error:", err);
+            eventsList.innerHTML = "<li>Unable to load events</li>";
         });
-
-        upcoming.sort((a, b) => a.date - b.date);
-
-        list.innerHTML = "";
-
-        upcoming.slice(0, MAX_EVENTS).forEach(event => {
-            const li = document.createElement("li");
-            li.textContent = `${event.date.toLocaleDateString(undefined, {
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            })} — ${event.title}`;
-            list.appendChild(li);
-        });
-
-        if (list.children.length === 0) {
-            list.innerHTML = "<li>No upcoming events</li>";
-        }
-
-    } catch (err) {
-        list.innerHTML = "<li>Unable to load events</li>";
-    }
-}
-
-document.addEventListener("DOMContentLoaded", loadEvents);
-</script>
+});
