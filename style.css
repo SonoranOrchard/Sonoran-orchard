@@ -244,3 +244,27 @@ p {
     margin-top: 40px;
     opacity: 0.95;
 }
+
+/* -------------------------------
+   Scorpion Game – Gravity Layer
+-------------------------------- */
+
+/* Allow falling tangerines to exist anywhere */
+.tangerine-world {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* While dragging */
+.tangerine-dragging {
+    cursor: grabbing;
+    pointer-events: auto;
+}
+
+/* Falling animation helper */
+.tangerine-falling {
+    pointer-events: none;
+}
+
