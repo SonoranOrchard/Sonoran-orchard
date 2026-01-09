@@ -38,10 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     day: "numeric"
                 });
 
-                li.innerHTML = `
-                    <strong>${formattedDate}</strong><br>
-                    ${event.summary || "Event"}
-                `;
+               const location = event.location
+    ? `<div class="event-location">
+         <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}"
+            target="_blank"
+            rel="noopener">
+            📍 ${event.location}
+         </a>
+       </div>`
+    : "";
+
 
                 eventsList.appendChild(li);
             });
