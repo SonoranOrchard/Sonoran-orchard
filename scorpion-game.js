@@ -1,22 +1,43 @@
 const scorpion = document.getElementById("scorpion");
 const carriedTangerine = document.getElementById("tangerine-carried");
-let carried = true; // tangerine starts on scorpion
+const tangerineWorld = document.getElementById("tangerine-world");
 
+let carried = true;
+let dragging = false;
+
+// Scorpion movement
 let scorpionX = -150;
 const speed = 1.2;
 
-let dragging = false;
-let activeTangerine = carriedTangerine;
+// Drag offsets
 let offsetX = 0;
 let offsetY = 0;
 
-// ---- DRAGGING ----
+// Gravity
+let falling = false;
+let velocityY = 0;
+const gravity = 0.6;
+
+// --------------------
+// DRAGGING
+// --------------------
 carriedTangerine.addEventListener("pointerdown", e => {
   if (!carried) return;
-  dragging = true;
-  carried = false;
 
-  carriedTangerine.style.pointerEvents = "auto";
+  carried = false;
+  dragging = true;
+  falling = false;
+  velocityY = 0;
+
+  // Move tangerine to world layer
+  const rect = carriedTangerine.getBoundingClientRect();
+  tangerineWorld.appendChild(carriedTangerine);
+
+  carriedTangerine.style.position = "fixed";
+  carriedTangerine.style.left = rect.left + "px";
+  carriedTangerine.style.top = rect.top + "px";
+  carriedTangerine.classList.add("tangerine-dragging");
+
   offsetX = e.offsetX;
   offsetY = e.offsetY;
 
@@ -26,20 +47,41 @@ carriedTangerine.addEventListener("pointerdown", e => {
 carriedTangerine.addEventListener("pointermove", e => {
   if (!dragging) return;
 
-  carriedTangerine.style.position = "absolute";
-  carriedTangerine.style.left = (e.pageX - offsetX) + "px";
-  carriedTangerine.style.top = (e.pageY - offsetY) + "px";
+  carriedTangerine.style.left = (e.clientX - offsetX) + "px";
+  carriedTangerine.style.top = (e.clientY - offsetY) + "px";
 });
 
-carriedTangerine.addEventListener("pointerup", e => {
+carriedTangerine.addEventListener("pointerup", () => {
   if (!dragging) return;
-  dragging = false;
 
-  carriedTangerine.style.pointerEvents = "auto";
-  carriedTangerine.classList.add("tangerine-dropped");
+  dragging = false;
+  falling = true;
+  carriedTangerine.classList.remove("tangerine-dragging");
 });
 
-// ---- SCORPION MOVEMENT ----
+// --------------------
+// GRAVITY LOOP
+// --------------------
+function applyGravity() {
+  if (!falling) return;
+
+  velocityY += gravity;
+
+  let top = carriedTangerine.offsetTop + velocityY;
+  const maxY = window.innerHeight - carriedTangerine.offsetHeight - 10;
+
+  if (top >= maxY) {
+    top = maxY;
+    velocityY = 0;
+    falling = false;
+  }
+
+  carriedTangerine.style.top = top + "px";
+}
+
+// --------------------
+// SCORPION MOVEMENT + COLLISION
+// --------------------
 function moveScorpion() {
   scorpionX += speed;
 
@@ -49,8 +91,8 @@ function moveScorpion() {
 
   scorpion.style.left = scorpionX + "px";
 
-  // check pickup collision
-  if (!carried) {
+  // Pickup check
+  if (!carried && !dragging) {
     const tRect = carriedTangerine.getBoundingClientRect();
     const sRect = scorpion.getBoundingClientRect();
 
@@ -62,17 +104,19 @@ function moveScorpion() {
     );
 
     if (overlap) {
-      // Reattach tangerine
+      // Reattach to scorpion
       carried = true;
-      carriedTangerine.classList.remove("tangerine-dropped");
+      falling = false;
+
+      scorpion.appendChild(carriedTangerine);
 
       carriedTangerine.style.position = "absolute";
-      carriedTangerine.style.top = "-10px";
       carriedTangerine.style.left = "40px";
-      scorpion.appendChild(carriedTangerine);
+      carriedTangerine.style.top = "-10px";
     }
   }
 
+  applyGravity();
   requestAnimationFrame(moveScorpion);
 }
 
