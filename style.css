@@ -1,7 +1,7 @@
 /* Hero Header */
 .hero-header {
     width: 100%;
-    padding: 40px 20px 0; /* controlled spacing above the image */
+    padding: 40px 20px 0;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -10,8 +10,8 @@
 
 /* Header Image */
 .hero-image {
-    max-width: 1200px;  /* prevents oversized desktop rendering */
     width: 100%;
+    max-width: 820px;
     height: auto;
     display: block;
 }
@@ -19,10 +19,6 @@
 @media (max-width: 768px) {
     .hero-header {
         padding-top: 20px;
-    }
-
-    .hero-image {
-        max-width: 100%;
     }
 }
 
