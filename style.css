@@ -50,6 +50,13 @@ header {
     margin-top: 24px;
 }
 
+.intro-text {
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-wrap: balance;   /* modern browsers */
+}
+
 /* Events */
 .events-section {
     max-width: 650px;
