@@ -47,8 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
          </a>
        </div>`
     : "";
-
-
+    li.innerHTML = `
+    <strong>${formattedDate}</strong><br>
+    ${event.summary || "Event"}
+    ${location}
+    `;
+                
                 eventsList.appendChild(li);
             });
         })
