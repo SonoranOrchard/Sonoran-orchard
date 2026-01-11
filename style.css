@@ -72,6 +72,11 @@ header {
   border-radius: 8px;
   margin-bottom: 12px;
 }
+.products {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
 .product-card h3 {
   margin: 8px 0 4px;
