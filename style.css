@@ -232,6 +232,18 @@ p {
 .map-button:hover {
   background: #cf711c;
 }
+@media (max-width: 600px) {
+
+  .stockist-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stockist-logo {
+    width: 140px;
+  }
+
+}
 
 /* Gallery */
 .gallery {
